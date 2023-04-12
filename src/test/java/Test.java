@@ -1,4 +1,5 @@
-import com.scavable.*;
+import com.scavable.gui.LauncherFrame;
+import com.scavable.objects.GameTile;
 
 import javax.imageio.ImageIO;
 import java.io.IOException;

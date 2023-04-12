@@ -1,4 +1,4 @@
-package com.scavable;
+package com.scavable.objects;
 
 import java.awt.*;
 import java.io.Serializable;
