@@ -7,6 +7,16 @@
     <dd>
       Shortcut Folder <br>
       Root Game Directory Folder (ex. C:\SteamLibrary\steamapps\common)
+    </dd>
+  
+  <dt> Sort game tiles </dt>
+    <dd>
+      Ascending <br>
+      Descending <br>
+      Recent <br>
+      Oldest <br>
+    </dd>
+  
   <dt> Change game tile </dt>
     <dd> 
       Background <br>
