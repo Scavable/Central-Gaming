@@ -3,6 +3,6 @@
 <dl>
   <dt> Change game tile </dt>
     <dd> Background
-    <dd> Text </dd>
+    Text </dd>
  </dl>
 </p> 
