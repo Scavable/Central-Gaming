@@ -22,32 +22,53 @@ public class Setup {
         Logger logger = Logger.getLogger(this.getClass().getName());
 
         //Read games file
-        File games = new File("games.json");
-        if (games.exists()) {
+        if(new File("games.json").exists()){
             logger.info("Games file already exist");
-        } else {
-            boolean status = games.createNewFile();
-            if (status) {
-                logger.info("Games file was created");
+            try {
+
+                Reader reader = Files.newBufferedReader(Paths.get("games.json"));
+                JsonObject parser = (JsonObject) Jsoner.deserialize(reader);
+
+                if(!parser.isEmpty()){
+                    //Do something
+                }
+
+                parser.clear();
+                reader.close();
+            } catch (JsonException e) {
+                new File("games.json").createNewFile();
+
+                JsonObject jsonObject = new JsonObject();
+                FileWriter fileWriter = new FileWriter("games.json");
+                fileWriter.write(jsonObject.toJson());
+
+                fileWriter.close();
             }
+        } else{
+            logger.info("Config file does not exist");
         }
 
         //Read config file
         if(new File("config.json").exists()){
             logger.info("Config file already exist");
             try {
+
                 Reader reader = Files.newBufferedReader(Paths.get("config.json"));
                 JsonObject parser = (JsonObject) Jsoner.deserialize(reader);
-                if(parser.isEmpty()){
-                    System.out.println("Parser Empty");
-                }else {
+
+                if(!parser.isEmpty())
                     Configuration.setGameDetectionType( (String) parser.get("gameDetectionType"));
-                }
+
                 parser.clear();
                 reader.close();
             } catch (JsonException e) {
+                new File("config.json").createNewFile();
 
-                throw new RuntimeException(e);
+                JsonObject jsonObject = new JsonObject();
+                FileWriter fileWriter = new FileWriter("config.json");
+                fileWriter.write(jsonObject.toJson());
+
+                fileWriter.close();
             }
         } else{
             logger.info("Config file does not exist");

@@ -1,5 +1,8 @@
 package com.scavable.setup;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Configuration {
 
     static String version;
@@ -28,5 +31,13 @@ public class Configuration {
 
     public static void setGameDetectionType(String gameDetectionType) {
         Configuration.gameDetectionType = gameDetectionType;
+    }
+
+    public static Map<String, String> getMap(){
+        Map<String, String> map = new HashMap<>();
+        map.put("appName", appName);
+        map.put("gameDetectionType", gameDetectionType);
+        map.put("version", version);
+        return map;
     }
 }

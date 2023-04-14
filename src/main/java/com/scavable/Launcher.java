@@ -15,7 +15,6 @@ public class Launcher {
         Runnable runnable = new Thread(LauncherFrame::getInstance);
         runnable.run();
 
-        //System.out.println(Thread.currentThread());
     }
 
 }

@@ -1,19 +1,36 @@
 package com.scavable.gui.actions;
 
-import com.scavable.gui.LauncherFrame;
+import com.github.cliftonlabs.json_simple.JsonObject;
 import com.scavable.setup.Configuration;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 public class ButtonActionEvents {
     public static ActionListener aboutAction(){
         return e -> {
             JFrame frame = new JFrame("About");
-            frame.getContentPane().setLayout(new GridLayout(2,1));
-            frame.getContentPane().add(new JLabel("Application Name: " + Configuration.getAppName()));
-            frame.getContentPane().add(new JLabel("Application Version: " + Configuration.getVersion()));
+            JPanel panel = new JPanel();
+
+            Border padding = BorderFactory.createEmptyBorder(5,5,5,5);
+
+            panel.setBorder(padding);
+            panel.setLayout(new GridLayout(2,2,5,5));
+
+            panel.add(new JLabel("Application Name: "));
+            panel.add(new JLabel(Configuration.getAppName()));
+            panel.add(new JLabel("Application Version: "));
+            panel.add(new JLabel(Configuration.getVersion()));
+
+            frame.getContentPane().add(panel);
+
+            frame.setLocationRelativeTo(null);
             frame.pack();
             frame.setVisible(true);
         };
@@ -43,6 +60,19 @@ public class ButtonActionEvents {
         };
     }
     public static ActionListener exitButtonAction(){
-        return e -> LauncherFrame.getInstance().dispose();
+        return e -> {
+            System.out.println(Configuration.getMap());
+            JsonObject object = new JsonObject(Configuration.getMap());
+            try {
+                PrintWriter printWriter = new PrintWriter("config.json");
+                printWriter.write(object.toJson());
+                printWriter.close();
+
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+            System.exit(0);
+        };
     }
+
 }
