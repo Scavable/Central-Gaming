@@ -1,20 +1,9 @@
 package com.scavable.gui;
 
-import com.github.cliftonlabs.json_simple.JsonObject;
-import com.github.cliftonlabs.json_simple.Jsoner;
 import com.scavable.gui.actions.ButtonActionEvents;
-import com.scavable.setup.Configuration;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Map;
 import java.util.logging.Logger;
 
 public class LauncherFrame extends JFrame{

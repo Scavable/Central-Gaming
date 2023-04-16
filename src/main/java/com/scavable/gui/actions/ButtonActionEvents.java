@@ -1,14 +1,12 @@
 package com.scavable.gui.actions;
 
 import com.github.cliftonlabs.json_simple.JsonObject;
-import com.scavable.setup.Configuration;
+import com.scavable.util.Configuration;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 

@@ -3,6 +3,7 @@ package com.scavable.setup;
 import com.github.cliftonlabs.json_simple.JsonException;
 import com.github.cliftonlabs.json_simple.JsonObject;
 import com.github.cliftonlabs.json_simple.Jsoner;
+import com.scavable.util.Configuration;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -36,7 +37,7 @@ public class Setup {
                 parser.clear();
                 reader.close();
             } catch (JsonException e) {
-                new File("games.json").createNewFile();
+                boolean result = new File("games.json").createNewFile();
 
                 JsonObject jsonObject = new JsonObject();
                 FileWriter fileWriter = new FileWriter("games.json");
@@ -62,7 +63,7 @@ public class Setup {
                 parser.clear();
                 reader.close();
             } catch (JsonException e) {
-                new File("config.json").createNewFile();
+                boolean result = new File("config.json").createNewFile();
 
                 JsonObject jsonObject = new JsonObject();
                 FileWriter fileWriter = new FileWriter("config.json");

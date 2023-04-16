@@ -1,4 +1,4 @@
-package com.scavable.setup;
+package com.scavable.util;
 
 import java.util.HashMap;
 import java.util.Map;
