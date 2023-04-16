@@ -5,10 +5,13 @@ import com.scavable.util.Configuration;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.LinkedList;
 
 public class ButtonActionEvents {
     public static ActionListener aboutAction(){
@@ -44,8 +47,27 @@ public class ButtonActionEvents {
             JButton okayButton = new JButton("Okay");
             okayButton.addActionListener(e1 -> {
                 System.out.println(choice.getSelectedItem().toString());
-                Configuration.setGameDetectionType(choice.getSelectedItem().toString());;
+                Configuration.setGameDetectionType(choice.getSelectedItem().toString());
                 frame.dispose();
+
+                if(choice.getSelectedItem().toString().contains("Shortcut")){
+                    JFileChooser jFileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+                    jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+                    jFileChooser.setDialogTitle("Shortcut's Folder");
+                    int result = jFileChooser.showDialog(null, "Select");
+                    if(result == JFileChooser.APPROVE_OPTION){
+                        File file = jFileChooser.getSelectedFile();
+                        Configuration.setShortcutFolder(file);
+                        LinkedList<File> games = new LinkedList<>();
+                        for (File game : file.listFiles()) {
+                            games.add(game);
+                        }
+                        Configuration.setGames(games);
+                    }
+                }else{
+
+                }
+
             });
 
             frame.getContentPane().add(choice);
@@ -59,8 +81,8 @@ public class ButtonActionEvents {
     }
     public static ActionListener exitButtonAction(){
         return e -> {
-            System.out.println(Configuration.getMap());
-            JsonObject object = new JsonObject(Configuration.getMap());
+            System.out.println(Configuration.getConfigMap());
+            JsonObject object = new JsonObject(Configuration.getConfigMap());
             try {
                 PrintWriter printWriter = new PrintWriter("config.json");
                 printWriter.write(object.toJson());
@@ -69,6 +91,18 @@ public class ButtonActionEvents {
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
+
+            System.out.println(Configuration.getGamesMap());
+            object = new JsonObject(Configuration.getGamesMap());
+            try {
+                PrintWriter printWriter = new PrintWriter("games.json");
+                printWriter.write(object.toJson());
+                printWriter.close();
+
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+
             System.exit(0);
         };
     }

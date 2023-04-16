@@ -1,6 +1,8 @@
 package com.scavable.util;
 
+import java.io.File;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 
 public class Configuration {
@@ -8,6 +10,35 @@ public class Configuration {
     static String version;
     static String appName;
     static String gameDetectionType;
+    static File shortcutFolder;
+    static LinkedList<File> rootDirectories;
+    static LinkedList<File> games;
+
+    public static LinkedList<File> getGames() {
+        return games;
+    }
+
+    public static void setGames(LinkedList<File> games) {
+        Configuration.games = games;
+    }
+
+    public static File getShortcutFolder() {
+        return shortcutFolder;
+    }
+
+    public static void setShortcutFolder(File shortcutFolder) {
+        Configuration.shortcutFolder = shortcutFolder;
+    }
+
+    public static LinkedList<File> getDirectories() {
+        return rootDirectories;
+    }
+
+    public static void setDirectories(LinkedList<File> directories) {
+        Configuration.rootDirectories = directories;
+    }
+
+
 
     public static String getVersion() {
         return version;
@@ -33,11 +64,24 @@ public class Configuration {
         Configuration.gameDetectionType = gameDetectionType;
     }
 
-    public static Map<String, String> getMap(){
-        Map<String, String> map = new HashMap<>();
+    public static Map<String, Object> getConfigMap(){
+        Map<String, Object> map = new HashMap<>();
         map.put("appName", appName);
         map.put("gameDetectionType", gameDetectionType);
         map.put("version", version);
+
+        if(gameDetectionType.contains("Shortcut"))
+            map.put("shortcutFolder", shortcutFolder.getAbsolutePath());
+        else if (gameDetectionType.contains("Root")) {
+            map.put("rootDirectories", rootDirectories);
+        }
+
+        return map;
+    }
+
+    public static Map<String, Object> getGamesMap(){
+        Map<String, Object> map = new HashMap<>();
+        map.put("games", games.toString());
         return map;
     }
 }
