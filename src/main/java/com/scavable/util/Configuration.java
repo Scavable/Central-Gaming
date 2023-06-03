@@ -1,5 +1,7 @@
 package com.scavable.util;
 
+import com.scavable.objects.GameTile;
+
 import java.io.File;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -12,13 +14,13 @@ public class Configuration {
     static String gameDetectionType;
     static File shortcutFolder;
     static LinkedList<File> rootDirectories;
-    static LinkedList<File> games;
+    static LinkedList<GameTile> games;
 
-    public static LinkedList<File> getGames() {
+    public static LinkedList<GameTile> getGames() {
         return games;
     }
 
-    public static void setGames(LinkedList<File> games) {
+    public static void setGames(LinkedList<GameTile> games) {
         Configuration.games = games;
     }
 
@@ -37,7 +39,6 @@ public class Configuration {
     public static void setDirectories(LinkedList<File> directories) {
         Configuration.rootDirectories = directories;
     }
-
 
 
     public static String getVersion() {
@@ -64,13 +65,13 @@ public class Configuration {
         Configuration.gameDetectionType = gameDetectionType;
     }
 
-    public static Map<String, Object> getConfigMap(){
+    public static Map<String, Object> getConfigMap() {
         Map<String, Object> map = new HashMap<>();
         map.put("appName", appName);
         map.put("gameDetectionType", gameDetectionType);
         map.put("version", version);
 
-        if(gameDetectionType.contains("Shortcut"))
+        if (gameDetectionType.contains("Shortcut"))
             map.put("shortcutFolder", shortcutFolder.getAbsolutePath());
         else if (gameDetectionType.contains("Root")) {
             map.put("rootDirectories", rootDirectories);
@@ -79,7 +80,7 @@ public class Configuration {
         return map;
     }
 
-    public static Map<String, Object> getGamesMap(){
+    public static Map<String, Object> getGamesMap() {
         Map<String, Object> map = new HashMap<>();
         map.put("games", games.toString());
         return map;

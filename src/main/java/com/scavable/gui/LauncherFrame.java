@@ -1,22 +1,16 @@
 package com.scavable.gui;
 
 import com.scavable.gui.actions.ButtonActionEvents;
+import com.scavable.objects.GameTile;
+import com.scavable.util.GameTileParser;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.logging.Logger;
 
-public class LauncherFrame extends JFrame{
-    Logger logger = Logger.getLogger(this.getClass().getName());
-
+public class LauncherFrame extends JFrame {
     private static LauncherFrame singleInstance = null;
-
     private final JPanel topPanel = new JPanel();
-    private JPanel gameTileContainer = new JPanel();
-    private JPanel gameTileInfoContainer = new JPanel();
-    private JPanel buttonsBarPanel = new JPanel();
-
-    private JMenuBar optionsBar = new JMenuBar();
     private final JMenu fileMenu = new JMenu("File");
     private final JMenuItem exitMenuItem = new JMenuItem("Exit");
     private final JMenu editMenu = new JMenu("Edit");
@@ -28,8 +22,13 @@ public class LauncherFrame extends JFrame{
     private final JMenuItem sortRecent = new JMenuItem("Recent");
     private final JMenuItem sortOldest = new JMenuItem("Oldest");
     private final JMenuItem aboutMenuItem = new JMenuItem("About");
-
     private final JButton exitButton = new JButton("X");
+    Logger logger = Logger.getLogger(this.getClass().getName());
+    JScrollPane scrollPane;
+    private JPanel gameTileContainer = new JPanel();
+    private JPanel gameTileInfoContainer = new JPanel();
+    private JPanel buttonsBarPanel = new JPanel();
+    private JMenuBar optionsBar = new JMenuBar();
 
 
     private LauncherFrame() {
@@ -47,18 +46,26 @@ public class LauncherFrame extends JFrame{
         initButtonsBarPanel();
 
         getContentPane().add(topPanel, BorderLayout.NORTH);
-        getContentPane().add(gameTileContainer, BorderLayout.CENTER);
+        getContentPane().add(scrollPane, BorderLayout.CENTER);
         getContentPane().add(buttonsBarPanel, BorderLayout.SOUTH);
 
         pack();
         setVisible(true);
+
+    }
+
+    public static synchronized LauncherFrame getInstance() {
+        if (singleInstance == null)
+            singleInstance = new LauncherFrame();
+
+        return singleInstance;
     }
 
     private void initTopPanel() {
 
         SpringLayout layout = new SpringLayout();
-        topPanel.setLayout(layout);;
-        topPanel.setPreferredSize(new Dimension((int) getPreferredSize().getWidth(), 100));
+        topPanel.setLayout(layout);
+        topPanel.setPreferredSize(new Dimension((int) getPreferredSize().getWidth(), (int) (exitButton.getPreferredSize().height * 1.4)));
 
         topPanel.add(optionsBar);
         topPanel.add(exitButton);
@@ -70,6 +77,17 @@ public class LauncherFrame extends JFrame{
     }
 
     private void initGameTilePanel() {
+
+        gameTileContainer.setLayout(new GridLayout(0, 5, 5, 5));
+        for (GameTile gameTile : GameTileParser.toGameTiles()) {
+            gameTile.setPreferredSize(new Dimension(getFrameWidth() / 6, getFrameHeight() / 3));
+            gameTileContainer.add(gameTile);
+        }
+
+        scrollPane = new JScrollPane(gameTileContainer);
+
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
     }
 
@@ -83,7 +101,6 @@ public class LauncherFrame extends JFrame{
         aboutMenuItem.addActionListener(ButtonActionEvents.aboutAction());
         exitButton.addActionListener(ButtonActionEvents.exitButtonAction());
     }
-
 
     private void initOptionsBar() {
         optionsBar.add(fileMenu);
@@ -102,13 +119,6 @@ public class LauncherFrame extends JFrame{
 
         optionsBar.add(aboutMenuItem);
 
-    }
-
-    public static synchronized LauncherFrame getInstance() {
-        if (singleInstance == null)
-            singleInstance = new LauncherFrame();
-
-        return singleInstance;
     }
 
     public JPanel getButtonsBarPanel() {
@@ -141,5 +151,13 @@ public class LauncherFrame extends JFrame{
 
     public void setGameTileInfoContainer(JPanel gameTileInfoContainer) {
         this.gameTileInfoContainer = gameTileInfoContainer;
+    }
+
+    public int getFrameWidth() {
+        return this.getPreferredSize().width;
+    }
+
+    public int getFrameHeight() {
+        return this.getPreferredSize().height;
     }
 }
