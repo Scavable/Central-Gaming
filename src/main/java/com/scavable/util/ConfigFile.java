@@ -18,9 +18,8 @@ public class ConfigFile {
         //Read config file
         if (new File("config.json").exists()) {
             logger.info("Config file already exist");
-            try {
 
-                Reader reader = Files.newBufferedReader(Paths.get("config.json"));
+            try (Reader reader = Files.newBufferedReader(Paths.get("config.json"))){
                 JsonObject parser = (JsonObject) Jsoner.deserialize(reader);
 
                 if (!parser.isEmpty()) {
@@ -31,12 +30,11 @@ public class ConfigFile {
                 }
 
                 parser.clear();
-                reader.close();
+
             } catch (JsonException e) {
                 //File doesn't have the minimum {}
                 //Override file to contain only {}
-                boolean result = new File("config.json").createNewFile();
-                if (result)
+                if (new File("config.json").createNewFile())
                     logger.info("Unable to clean corrupted config file");
 
                 JsonObject jsonObject = new JsonObject();
@@ -52,10 +50,8 @@ public class ConfigFile {
 
     public static void write() {
         JsonObject object = new JsonObject(Configuration.getConfigMap());
-        try {
-            PrintWriter printWriter = new PrintWriter("config.json");
+        try (PrintWriter printWriter = new PrintWriter("config.json")){
             printWriter.write(object.toJson());
-            printWriter.close();
 
         } catch (IOException ex) {
             throw new RuntimeException(ex);

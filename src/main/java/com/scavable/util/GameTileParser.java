@@ -11,7 +11,7 @@ public class GameTileParser {
         if (Configuration.getGameDetectionType().contains("Shortcut")) {
             File[] games = Configuration.getShortcutFolder().listFiles();
             for (File game : games) {
-                gamesLinkedList.add(new GameTile(game.getName()));
+                gamesLinkedList.add(new GameTile(game.getName().split("\\.")[0]));
             }
             return gamesLinkedList;
         }
@@ -20,12 +20,10 @@ public class GameTileParser {
     }
 
     public GameTile toGameTile(String url) {
-        GameTile gameTile = new GameTile();
-        return gameTile;
+        return new GameTile();
     }
 
     public GameTile toGameTile(File file) {
-        GameTile gameTile = new GameTile();
-        return gameTile;
+        return new GameTile();
     }
 }

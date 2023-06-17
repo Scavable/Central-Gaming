@@ -9,12 +9,12 @@ import java.util.Map;
 
 public class Configuration {
 
-    static String version;
-    static String appName;
-    static String gameDetectionType;
-    static File shortcutFolder;
-    static LinkedList<File> rootDirectories;
-    static LinkedList<GameTile> games;
+    private static String version;
+    private static String appName;
+    private static String gameDetectionType;
+    private static File shortcutFolder;
+    private static LinkedList<File> rootDirectories;
+    private static LinkedList<GameTile> games;
 
     public static LinkedList<GameTile> getGames() {
         return games;
