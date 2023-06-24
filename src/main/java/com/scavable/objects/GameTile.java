@@ -4,18 +4,21 @@ import com.scavable.gui.LauncherFrame;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.OptionalDouble;
 
 public class GameTile extends JButton {
-    private final String name;
-    private final double playTime;
-    private final int timesLaunched;
-    private final Image gameImage;
+    private String gameLocation = null;
+    private String name = null;
+    private double playTime = 0;
+    private int timesLaunched = 0;
+    private Image gameImage = null;
 
     public GameTile() {
         this.name = null;
         this.playTime = 0;
         this.timesLaunched = 0;
         this.gameImage = null;
+        this.gameLocation = null;
 
         setOpaque(true);
         setText(name);
@@ -43,15 +46,10 @@ public class GameTile extends JButton {
     public GameTile(String name) {
 
         this.name = name;
-        this.playTime = 0;
-        this.timesLaunched = 0;
-        this.gameImage = null;
 
-        setOpaque(true);
         setText(name);
 
         GameTile.this.addActionListener(e -> {
-            //LauncherFrame.getGameTileInfoContainer().setVisible(!LauncherFrame.getGameTileInfoContainer().isVisible());
             for (Component comp : LauncherFrame.getGameTileInfoContainer().getComponents()) {
                 if (comp instanceof JLabel) {
                     switch (comp.getName()) {
@@ -73,11 +71,10 @@ public class GameTile extends JButton {
     public GameTile(String name, double playTime) {
         this.name = name;
         this.playTime = playTime;
-        this.timesLaunched = 0;
-        this.gameImage = null;
+
         this.setText(name);
+
         GameTile.this.addActionListener(e -> {
-            LauncherFrame.getGameTileInfoContainer().setVisible(!LauncherFrame.getGameTileInfoContainer().isVisible());
             for (Component comp : LauncherFrame.getGameTileInfoContainer().getComponents()) {
                 if (comp instanceof JLabel) {
                     switch (comp.getName()) {
@@ -99,10 +96,10 @@ public class GameTile extends JButton {
         this.name = name;
         this.playTime = playTime;
         this.timesLaunched = timesLaunched;
-        this.gameImage = null;
+
         this.setText(name);
+
         GameTile.this.addActionListener(e -> {
-            LauncherFrame.getGameTileInfoContainer().setVisible(!LauncherFrame.getGameTileInfoContainer().isVisible());
             for (Component comp : LauncherFrame.getGameTileInfoContainer().getComponents()) {
                 if (comp instanceof JLabel) {
                     switch (comp.getName()) {
@@ -120,14 +117,16 @@ public class GameTile extends JButton {
         });
     }
 
-    public GameTile(String name, double playTime, int timesLaunched, Image gameImage) {
+    public GameTile(String name, double playTime, int timesLaunched, Image gameImage, String gameLocation) {
         this.name = name;
         this.playTime = playTime;
         this.timesLaunched = timesLaunched;
         this.gameImage = gameImage;
+        this.gameLocation = gameLocation;
+
         this.setText(name);
+
         GameTile.this.addActionListener(e -> {
-            LauncherFrame.getGameTileInfoContainer().setVisible(!LauncherFrame.getGameTileInfoContainer().isVisible());
             for (Component comp : LauncherFrame.getGameTileInfoContainer().getComponents()) {
                 if (comp instanceof JLabel) {
                     switch (comp.getName()) {
@@ -152,6 +151,16 @@ public class GameTile extends JButton {
                 ", playTime=" + playTime +
                 ", timesLaunched=" + timesLaunched +
                 ", gameImage=" + gameImage +
+                ", location=" + gameLocation +
                 '}';
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    public String getGameLocation() {
+        return gameLocation;
     }
 }

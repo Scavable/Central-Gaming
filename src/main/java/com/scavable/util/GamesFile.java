@@ -8,7 +8,6 @@ import com.scavable.objects.GameTile;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.logging.Logger;
 
@@ -31,14 +30,34 @@ public class GamesFile {
                         Configuration.getShortcutFolder() != null &&
                         Configuration.getShortcutFolder().listFiles() != null) {
 
-                        LinkedList<GameTile> games = new LinkedList<>();
-                        File[] files = Configuration.getShortcutFolder().listFiles();
-                        if (files != null) {
-                            for (File game : files) {
-                                games.add(new GameTile(game.getName().split("\\.")[0]));
-                            }
-                            Configuration.setGames(games);
+                    LinkedList<GameTile> games = new LinkedList<>();
+                    File[] files = Configuration.getShortcutFolder().listFiles();
+
+                    if (files != null) {
+
+                        for (File game : files) {
+                            System.out.println(game.getAbsolutePath());
+                            games.add(new GameTile(game.getName().split("\\.")[0],
+                                    0.0, 0, null, game.getAbsolutePath()));
                         }
+
+                        Configuration.setGames(games);
+                    }
+                }
+
+                else if (!parser.isEmpty() &&
+                        Configuration.getGameDetectionType().contains("rootDirectories") &&
+                        Configuration.getDirectories() != null) {
+
+                    LinkedList<GameTile> games = new LinkedList<>();
+                    File[] files = Configuration.getShortcutFolder().listFiles();
+                    if (files != null) {
+                        for (File game : files) {
+                            games.add(new GameTile(game.getName().split("\\.")[0],
+                                    0.0, 0, null, game.getAbsolutePath()));
+                        }
+                        Configuration.setGames(games);
+                    }
                 }
 
                 parser.clear();

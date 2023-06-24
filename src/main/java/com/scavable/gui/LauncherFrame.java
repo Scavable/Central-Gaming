@@ -2,11 +2,12 @@ package com.scavable.gui;
 
 import com.scavable.gui.actions.ButtonActionEvents;
 import com.scavable.objects.GameTile;
-import com.scavable.util.GameTileParser;
+import com.scavable.util.Configuration;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.io.IOException;
 import java.util.logging.Logger;
 
 public class LauncherFrame extends JFrame {
@@ -71,7 +72,9 @@ public class LauncherFrame extends JFrame {
         playTime.setName("Playtime");
         JLabel launches = new JLabel("Times Launched: ");
         launches.setName("Launches");
-        JButton play = new JButton("Launch");
+        JButton play = new JButton("Play");
+
+        play.addActionListener(ButtonActionEvents.playButtonAction());
 
         gameTileInfoContainer.add(name);
         gameTileInfoContainer.add(playTime);
@@ -104,7 +107,7 @@ public class LauncherFrame extends JFrame {
     private void gameTilePanel() {
 
         gameTileContainer.setLayout(new GridLayout(0, 5, 5, 5));
-        for (GameTile gameTile : GameTileParser.toGameTiles()) {
+        for (GameTile gameTile : Configuration.getGames()) {
             gameTile.setPreferredSize(new Dimension(getFrameWidth() / 6, getFrameHeight() / 3));
             gameTileContainer.add(gameTile);
         }

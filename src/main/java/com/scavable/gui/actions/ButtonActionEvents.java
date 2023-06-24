@@ -1,5 +1,6 @@
 package com.scavable.gui.actions;
 
+import com.scavable.gui.LauncherFrame;
 import com.scavable.objects.GameTile;
 import com.scavable.util.ConfigFile;
 import com.scavable.util.Configuration;
@@ -8,11 +9,17 @@ import com.scavable.util.GamesFile;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.filechooser.FileSystemView;
+import javax.swing.text.StyledEditorKit;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 public class ButtonActionEvents {
     public static ActionListener aboutAction() {
@@ -87,6 +94,34 @@ public class ButtonActionEvents {
             ConfigFile.write();
             GamesFile.write();
             System.exit(0);
+        };
+    }
+
+    public static ActionListener playButtonAction(){
+        return e -> {
+            try {
+                JLabel label = (JLabel) LauncherFrame.getGameTileInfoContainer().getComponent(0);
+                String name = label.getText();
+                System.out.println(name);
+
+                String gameLocation = "";
+
+                for (Component component: LauncherFrame.getInstance().getGameTileContainer().getComponents()){
+                    if(component instanceof GameTile gameTile){
+                        if(gameTile.getName().contains(name)){
+                            gameLocation = gameTile.getGameLocation();
+                        }
+
+                    }
+                }
+
+                System.out.println(gameLocation.substring(0, gameLocation.lastIndexOf("\\")));
+                Runtime.getRuntime().exec("cmd /c start \"\" " + "\""+gameLocation+"\"");
+
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+
         };
     }
 
