@@ -1,8 +1,9 @@
-package com.scavable.util;
+package com.scavable.setup;
 
 import com.github.cliftonlabs.json_simple.JsonException;
 import com.github.cliftonlabs.json_simple.JsonObject;
 import com.github.cliftonlabs.json_simple.Jsoner;
+import com.scavable.util.Configuration;
 
 import java.io.*;
 import java.nio.file.Files;

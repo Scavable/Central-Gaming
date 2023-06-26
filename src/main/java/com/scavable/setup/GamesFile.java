@@ -1,9 +1,10 @@
-package com.scavable.util;
+package com.scavable.setup;
 
 import com.github.cliftonlabs.json_simple.JsonException;
 import com.github.cliftonlabs.json_simple.JsonObject;
 import com.github.cliftonlabs.json_simple.Jsoner;
 import com.scavable.objects.GameTile;
+import com.scavable.util.Configuration;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -36,9 +37,10 @@ public class GamesFile {
                     if (files != null) {
 
                         for (File game : files) {
-                            System.out.println(game.getAbsolutePath());
-                            games.add(new GameTile(game.getName().split("\\.")[0],
-                                    0.0, 0, null, game.getAbsolutePath()));
+                            if (game.isFile()){
+                                games.add(new GameTile(game.getName().split("\\.")[0],
+                                        0.0, 0, null, game.getAbsolutePath()));
+                            }
                         }
 
                         Configuration.setGames(games);

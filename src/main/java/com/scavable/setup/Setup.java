@@ -1,8 +1,6 @@
 package com.scavable.setup;
 
-import com.scavable.util.ConfigFile;
 import com.scavable.util.Configuration;
-import com.scavable.util.GamesFile;
 
 import java.io.IOException;
 import java.util.Properties;
