@@ -25,12 +25,16 @@ public class ButtonActionEvents {
             Border padding = BorderFactory.createEmptyBorder(5, 5, 5, 5);
 
             panel.setBorder(padding);
-            panel.setLayout(new GridLayout(2, 2, 5, 5));
+            panel.setLayout(new GridLayout(4, 2, 5, 5));
 
             panel.add(new JLabel("Application Name: "));
             panel.add(new JLabel(Configuration.getAppName()));
             panel.add(new JLabel("Application Version: "));
             panel.add(new JLabel(Configuration.getVersion()));
+            panel.add(new JLabel("Application Developer: "));
+            panel.add(new JLabel(Configuration.getDeveloper()));
+            panel.add(new JLabel("Developer Github: "));
+            panel.add(new JLabel(Configuration.getGithub()));
 
             frame.getContentPane().add(panel);
 
