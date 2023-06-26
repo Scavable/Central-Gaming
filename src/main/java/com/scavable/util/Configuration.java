@@ -11,6 +11,8 @@ public class Configuration {
 
     private static String version;
     private static String appName;
+    private static String developer;
+    private static String github;
     private static String gameDetectionType;
     private static File shortcutFolder;
     private static LinkedList<File> rootDirectories;
@@ -55,6 +57,22 @@ public class Configuration {
 
     public static void setAppName(String appName) {
         Configuration.appName = appName;
+    }
+
+    public static String getDeveloper() {
+        return developer;
+    }
+
+    public static void setDeveloper(String developer) {
+        Configuration.developer = developer;
+    }
+
+    public static String getGithub() {
+        return github;
+    }
+
+    public static void setGithub(String github) {
+        Configuration.github = github;
     }
 
     public static String getGameDetectionType() {

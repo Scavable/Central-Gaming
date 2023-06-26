@@ -12,6 +12,8 @@ public class Setup {
 
         Configuration.setAppName(properties.getProperty("name"));
         Configuration.setVersion(properties.getProperty("version"));
+        Configuration.setDeveloper(properties.getProperty("developer"));
+        Configuration.setGithub(properties.getProperty("github"));
 
         ConfigFile.read();
         GamesFile.read();
