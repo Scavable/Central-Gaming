@@ -1,13 +1,11 @@
 package com.scavable.gui;
 
 import com.scavable.gui.actions.ButtonActionEvents;
-import com.scavable.objects.GameTile;
-import com.scavable.util.Configuration;
+import com.scavable.gui.components.GameTileContainer;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.io.IOException;
 import java.util.logging.Logger;
 
 public class LauncherFrame extends JFrame {
@@ -17,10 +15,11 @@ public class LauncherFrame extends JFrame {
 
     protected JButton exitButton = new JButton("X");
 
-    protected JScrollPane scrollPane;
-
     protected JPanel topPanel = new JPanel();
+
+    protected JScrollPane scrollPane;
     protected JPanel gameTileContainer = new JPanel();
+
     private static JPanel gameTileInfoContainer = new JPanel();
     protected JPanel buttonsBarPanel = new JPanel();
 
@@ -34,7 +33,7 @@ public class LauncherFrame extends JFrame {
     protected JMenuItem gameDetectionMenuItem = new JMenuItem("Game Detection");
 
 
-    private LauncherFrame() {
+    public LauncherFrame() {
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         setPreferredSize(new Dimension((int) (screenSize.getWidth() / 2), (int) (screenSize.getHeight() / 2)));
@@ -45,12 +44,13 @@ public class LauncherFrame extends JFrame {
         actionListeners();
         optionsBar();
         topPanel();
-        gameTilePanel();
         buttonsBarPanel();
         gameTileInfoContainer();
 
+        JScrollPane gameTileContainer = new GameTileContainer().GameTileContainer(this.getPreferredSize());
+
         getContentPane().add(topPanel, BorderLayout.NORTH);
-        getContentPane().add(scrollPane, BorderLayout.CENTER);
+        getContentPane().add(gameTileContainer, BorderLayout.CENTER);
         getContentPane().add(buttonsBarPanel, BorderLayout.SOUTH);
         getContentPane().add(gameTileInfoContainer, BorderLayout.EAST);
 
@@ -82,13 +82,6 @@ public class LauncherFrame extends JFrame {
         gameTileInfoContainer.add(play);
     }
 
-    public static synchronized LauncherFrame getInstance() {
-        if (singleInstance == null)
-            singleInstance = new LauncherFrame();
-
-        return singleInstance;
-    }
-
     private void topPanel() {
 
         SpringLayout layout = new SpringLayout();
@@ -104,21 +97,7 @@ public class LauncherFrame extends JFrame {
         layout.putConstraint(SpringLayout.NORTH, exitButton, 5, SpringLayout.NORTH, topPanel);
     }
 
-    private void gameTilePanel() {
 
-        gameTileContainer.setLayout(new GridLayout(0, 5, 5, 5));
-        for (GameTile gameTile : Configuration.getGames()) {
-            gameTile.setPreferredSize(new Dimension(getFrameWidth() / 6, getFrameHeight() / 3));
-            gameTileContainer.add(gameTile);
-        }
-
-        scrollPane = new JScrollPane(gameTileContainer);
-
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-
-        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
-    }
 
     private void buttonsBarPanel() {
 
@@ -186,7 +165,7 @@ public class LauncherFrame extends JFrame {
     }
 
     public void setGameTileInfoContainer(JPanel gameTileInfoContainer) {
-        this.gameTileInfoContainer = gameTileInfoContainer;
+        LauncherFrame.gameTileInfoContainer = gameTileInfoContainer;
     }
 
     public int getFrameWidth() {
@@ -195,5 +174,12 @@ public class LauncherFrame extends JFrame {
 
     public int getFrameHeight() {
         return this.getPreferredSize().height;
+    }
+
+    public static synchronized LauncherFrame getInstance() {
+        if (singleInstance == null)
+            singleInstance = new LauncherFrame();
+
+        return singleInstance;
     }
 }
