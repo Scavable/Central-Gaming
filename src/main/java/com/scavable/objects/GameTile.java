@@ -1,14 +1,13 @@
 package com.scavable.objects;
 
-import com.scavable.gui.LauncherFrame;
+import com.scavable.gui.components.GameTileInfoContainer;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.OptionalDouble;
 
 public class GameTile extends JButton {
     private String gameLocation = null;
-    private String name = null;
+    private final String name;
     private double playTime = 0;
     private int timesLaunched = 0;
     private Image gameImage = null;
@@ -24,8 +23,8 @@ public class GameTile extends JButton {
         setText(name);
 
         GameTile.this.addActionListener(e -> {
-            LauncherFrame.getGameTileInfoContainer().setVisible(!LauncherFrame.getGameTileInfoContainer().isVisible());
-            for (Component comp : LauncherFrame.getGameTileInfoContainer().getComponents()) {
+            GameTileInfoContainer.getGameTileInfoContainer().setVisible(!GameTileInfoContainer.getGameTileInfoContainer().isVisible());
+            for (Component comp : GameTileInfoContainer.getGameTileInfoContainer().getComponents()) {
                 if (comp instanceof JLabel) {
                     switch (comp.getName()) {
                         case "Name" -> ((JLabel) comp).setText("Name: " + name);
@@ -50,7 +49,7 @@ public class GameTile extends JButton {
         setText(name);
 
         GameTile.this.addActionListener(e -> {
-            for (Component comp : LauncherFrame.getGameTileInfoContainer().getComponents()) {
+            for (Component comp : GameTileInfoContainer.getGameTileInfoContainer().getComponents()) {
                 if (comp instanceof JLabel) {
                     switch (comp.getName()) {
                         case "Name" -> ((JLabel) comp).setText("Name: " + name);
@@ -75,7 +74,7 @@ public class GameTile extends JButton {
         this.setText(name);
 
         GameTile.this.addActionListener(e -> {
-            for (Component comp : LauncherFrame.getGameTileInfoContainer().getComponents()) {
+            for (Component comp : GameTileInfoContainer.getGameTileInfoContainer().getComponents()) {
                 if (comp instanceof JLabel) {
                     switch (comp.getName()) {
                         case "Name" -> ((JLabel) comp).setText(name);
@@ -100,7 +99,7 @@ public class GameTile extends JButton {
         this.setText(name);
 
         GameTile.this.addActionListener(e -> {
-            for (Component comp : LauncherFrame.getGameTileInfoContainer().getComponents()) {
+            for (Component comp : GameTileInfoContainer.getGameTileInfoContainer().getComponents()) {
                 if (comp instanceof JLabel) {
                     switch (comp.getName()) {
                         case "Name" -> ((JLabel) comp).setText(name);
@@ -127,7 +126,7 @@ public class GameTile extends JButton {
         this.setText(name);
 
         GameTile.this.addActionListener(e -> {
-            for (Component comp : LauncherFrame.getGameTileInfoContainer().getComponents()) {
+            for (Component comp : GameTileInfoContainer.getGameTileInfoContainer().getComponents()) {
                 if (comp instanceof JLabel) {
                     switch (comp.getName()) {
                         case "Name" -> ((JLabel) comp).setText(name);

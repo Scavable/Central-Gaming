@@ -2,9 +2,9 @@ package com.scavable.gui;
 
 import com.scavable.gui.actions.ButtonActionEvents;
 import com.scavable.gui.components.GameTileContainer;
+import com.scavable.gui.components.GameTileInfoContainer;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.logging.Logger;
 
@@ -17,10 +17,6 @@ public class LauncherFrame extends JFrame {
 
     protected JPanel topPanel = new JPanel();
 
-    protected JScrollPane scrollPane;
-    protected JPanel gameTileContainer = new JPanel();
-
-    private static JPanel gameTileInfoContainer = new JPanel();
     protected JPanel buttonsBarPanel = new JPanel();
 
     protected JMenuBar optionsBar = new JMenuBar();
@@ -31,6 +27,9 @@ public class LauncherFrame extends JFrame {
     protected JMenuItem sortOldest = new JMenuItem("Oldest");
     protected JMenuItem aboutMenuItem = new JMenuItem("About");
     protected JMenuItem gameDetectionMenuItem = new JMenuItem("Game Detection");
+
+    JScrollPane gameTileContainer;
+    JPanel gameTileInfoContainer;
 
 
     public LauncherFrame() {
@@ -45,9 +44,10 @@ public class LauncherFrame extends JFrame {
         optionsBar();
         topPanel();
         buttonsBarPanel();
-        gameTileInfoContainer();
 
-        JScrollPane gameTileContainer = new GameTileContainer().GameTileContainer(this.getPreferredSize());
+        //Since LauncherFrame is Synchronized, an outside Class cannot reference it
+        gameTileContainer = new GameTileContainer().GameTileContainer(this.getPreferredSize());
+        gameTileInfoContainer = new GameTileInfoContainer().GameTileInfoContainer(this.getPreferredSize());
 
         getContentPane().add(topPanel, BorderLayout.NORTH);
         getContentPane().add(gameTileContainer, BorderLayout.CENTER);
@@ -57,29 +57,6 @@ public class LauncherFrame extends JFrame {
         pack();
         setVisible(true);
 
-    }
-
-    private void gameTileInfoContainer() {
-        gameTileInfoContainer.setName("InfoContainer");
-
-        gameTileInfoContainer.setMaximumSize(new Dimension(50, getPreferredSize().height));
-        gameTileInfoContainer.setLayout(new GridLayout(4, 1));
-        gameTileInfoContainer.setBorder(new EmptyBorder(10,10,10,10));
-
-        JLabel name = new JLabel("Name: ");
-        name.setName("Name");
-        JLabel playTime = new JLabel("Playtime: ");
-        playTime.setName("Playtime");
-        JLabel launches = new JLabel("Times Launched: ");
-        launches.setName("Launches");
-        JButton play = new JButton("Play");
-
-        play.addActionListener(ButtonActionEvents.playButtonAction());
-
-        gameTileInfoContainer.add(name);
-        gameTileInfoContainer.add(playTime);
-        gameTileInfoContainer.add(launches);
-        gameTileInfoContainer.add(play);
     }
 
     private void topPanel() {
@@ -152,20 +129,12 @@ public class LauncherFrame extends JFrame {
         this.optionsBar = optionsBar;
     }
 
-    public JPanel getGameTileContainer() {
+    public JScrollPane getGameTileContainer() {
         return gameTileContainer;
     }
 
-    public void setGameTileContainer(JPanel gameTileContainer) {
-        this.gameTileContainer = gameTileContainer;
-    }
-
-    public static JPanel getGameTileInfoContainer() {
+    public JPanel getGameTileInfoContainer() {
         return gameTileInfoContainer;
-    }
-
-    public void setGameTileInfoContainer(JPanel gameTileInfoContainer) {
-        LauncherFrame.gameTileInfoContainer = gameTileInfoContainer;
     }
 
     public int getFrameWidth() {

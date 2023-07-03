@@ -1,10 +1,11 @@
 package com.scavable.gui.actions;
 
-import com.scavable.gui.LauncherFrame;
+import com.scavable.gui.components.GameTileContainer;
+import com.scavable.gui.components.GameTileInfoContainer;
 import com.scavable.objects.GameTile;
 import com.scavable.setup.ConfigFile;
-import com.scavable.util.Configuration;
 import com.scavable.setup.GamesFile;
+import com.scavable.util.Configuration;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -99,13 +100,13 @@ public class ButtonActionEvents {
     public static ActionListener playButtonAction(){
         return e -> {
             try {
-                JLabel label = (JLabel) LauncherFrame.getGameTileInfoContainer().getComponent(0);
+                JLabel label = (JLabel) GameTileInfoContainer.getGameTileInfoContainer().getComponent(0);
                 String name = label.getText();
                 System.out.println(name);
 
                 String gameLocation = "";
 
-                for (Component component: LauncherFrame.getInstance().getGameTileContainer().getComponents()){
+                for (Component component: GameTileContainer.getGameTileContainer().getComponents()){
                     if(component instanceof GameTile gameTile){
                         if(gameTile.getName().contains(name)){
                             gameLocation = gameTile.getGameLocation();
