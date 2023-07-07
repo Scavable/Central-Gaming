@@ -95,6 +95,9 @@ public class LauncherFrame extends JFrame {
         JMenu sortMenu = new JMenu("Sort");
         JMenu customizeMenu = new JMenu("Customize");
 
+        sortAsc.addActionListener(ButtonActionEvents.sortAscendingAction());
+        sortDesc.addActionListener(ButtonActionEvents.sortDescendingAction());
+
 
         optionsBar.add(fileMenu);
         optionsBar.add(editMenu);

@@ -8,7 +8,7 @@ import java.awt.*;
 
 public class GameTileContainer {
     static JPanel gameTileContainer = new JPanel();
-    JScrollPane scrollPane;
+    static JScrollPane scrollPane;
     public JScrollPane GameTileContainer(Dimension preferredSize) {
 
         gameTileContainer.setLayout(new GridLayout(0, 5, 5, 5));
@@ -31,7 +31,11 @@ public class GameTileContainer {
         return gameTileContainer;
     }
 
-    public void setGameTileContainer(JPanel gameTileContainer) {
+    public static void setGameTileContainer(JPanel gameTileContainer) {
         GameTileContainer.gameTileContainer = gameTileContainer;
+    }
+
+    public static JScrollPane getGameTileScrollPane(){
+        return scrollPane;
     }
 }

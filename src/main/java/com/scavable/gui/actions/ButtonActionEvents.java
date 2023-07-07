@@ -14,6 +14,8 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.text.Collator;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Objects;
 
@@ -122,6 +124,42 @@ public class ButtonActionEvents {
                 throw new RuntimeException(ex);
             }
 
+        };
+    }
+
+    public static ActionListener sortAscendingAction(){
+        return e -> {
+            JPanel panel = (JPanel) GameTileContainer.getGameTileScrollPane().getViewport().getView();
+            panel.removeAll();
+
+            LinkedList<GameTile> games = Configuration.getGames();
+
+            games.sort((o1, o2) -> Collator.getInstance().compare(o1.getName(), o2.getName()));
+
+            for(GameTile temp: games){
+                panel.add(temp);
+            }
+
+            GameTileContainer.getGameTileScrollPane().setViewportView(panel);
+
+        };
+    }
+
+    public static ActionListener sortDescendingAction(){
+        return e -> {
+
+            JPanel panel = (JPanel) GameTileContainer.getGameTileScrollPane().getViewport().getView();
+            panel.removeAll();
+
+            LinkedList<GameTile> games = Configuration.getGames();
+
+            games.sort((o1, o2) -> Collator.getInstance().compare(o2.getName(), o1.getName()));
+
+            for(GameTile temp: games){
+                panel.add(temp);
+            }
+
+            GameTileContainer.getGameTileScrollPane().setViewportView(panel);
         };
     }
 
