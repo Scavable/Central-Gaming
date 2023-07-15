@@ -77,7 +77,7 @@ public class ButtonActionEvents {
                         Configuration.setGames(games);
                         LauncherFrame.getInstance().remove(GameTileContainer.getGameTileScrollPane());
                         LauncherFrame.getInstance().add(new GameTileContainer().GameTileContainer(LauncherFrame.getInstance().getPreferredSize()), BorderLayout.CENTER);
-                        LauncherFrame.getInstance().repaint();
+                        LauncherFrame.getInstance().revalidate();
                     }
                 } else {
 
