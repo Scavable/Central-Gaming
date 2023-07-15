@@ -4,7 +4,6 @@ import com.scavable.gui.components.GameTileInfoContainer;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Date;
 
 public class GameTile extends JButton {
     private String gameLocation = null;
@@ -215,4 +214,5 @@ public class GameTile extends JButton {
     public void setGameImage(Image gameImage) {
         this.gameImage = gameImage;
     }
+
 }

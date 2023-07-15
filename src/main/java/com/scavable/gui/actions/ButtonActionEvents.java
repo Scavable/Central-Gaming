@@ -17,7 +17,9 @@ import java.io.File;
 import java.io.IOException;
 import java.text.Collator;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
 
 public class ButtonActionEvents {
@@ -117,7 +119,6 @@ public class ButtonActionEvents {
                         if(gameTile.getName().contains(name)){
                             gameLocation = gameTile.getGameLocation();
                             gameTile.setLastLaunched(System.currentTimeMillis());
-                            System.out.println(gameTile.getLastLaunched());
                         }
 
                     }
@@ -161,6 +162,46 @@ public class ButtonActionEvents {
             LinkedList<GameTile> games = Configuration.getGames();
 
             games.sort((o1, o2) -> Collator.getInstance().compare(o2.getName(), o1.getName()));
+
+            for(GameTile temp: games){
+                panel.add(temp);
+            }
+
+            GameTileContainer.getGameTileScrollPane().setViewportView(panel);
+        };
+    }
+
+    public static ActionListener sortRecent(){
+        return e -> {
+
+            JPanel panel = (JPanel) GameTileContainer.getGameTileScrollPane().getViewport().getView();
+            panel.removeAll();
+
+            List<GameTile> games = Configuration.getGames();
+
+            System.out.println(games);
+            Collections.sort(games);
+            System.out.println(games);
+
+            for(GameTile temp: games){
+                panel.add(temp);
+            }
+
+            GameTileContainer.getGameTileScrollPane().setViewportView(panel);
+        };
+    }
+
+    public static ActionListener sortOldest(){
+        return e -> {
+
+            JPanel panel = (JPanel) GameTileContainer.getGameTileScrollPane().getViewport().getView();
+            panel.removeAll();
+
+            List<GameTile> games = Configuration.getGames();
+
+            System.out.println(games);
+            Collections.sort(games);
+            System.out.println(games);
 
             for(GameTile temp: games){
                 panel.add(temp);

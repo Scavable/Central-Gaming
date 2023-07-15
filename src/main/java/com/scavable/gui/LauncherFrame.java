@@ -98,7 +98,8 @@ public class LauncherFrame extends JFrame {
 
         sortAsc.addActionListener(ButtonActionEvents.sortAscendingAction());
         sortDesc.addActionListener(ButtonActionEvents.sortDescendingAction());
-
+        sortRecent.addActionListener(ButtonActionEvents.sortRecent());
+        sortOldest.addActionListener(ButtonActionEvents.sortOldest());
 
         optionsBar.add(fileMenu);
         optionsBar.add(editMenu);
