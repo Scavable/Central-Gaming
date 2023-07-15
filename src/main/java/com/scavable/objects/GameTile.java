@@ -162,6 +162,7 @@ public class GameTile extends JButton {
                 ", timesLaunched=" + timesLaunched +
                 ", gameImage=" + gameImage +
                 ", location=" + gameLocation +
+                ", lastLaunched=" + lastLaunched +
                 '}';
     }
 

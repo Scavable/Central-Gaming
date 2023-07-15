@@ -177,11 +177,18 @@ public class ButtonActionEvents {
             JPanel panel = (JPanel) GameTileContainer.getGameTileScrollPane().getViewport().getView();
             panel.removeAll();
 
-            List<GameTile> games = Configuration.getGames();
+            LinkedList<GameTile> games = Configuration.getGames();
 
-            System.out.println(games);
-            Collections.sort(games);
-            System.out.println(games);
+            for(int i = 0; i < games.size(); i++){
+                for(int j = 1; j < games.size(); j++){
+                    if(games.get(i).getLastLaunched() > games.get(j).getLastLaunched()){
+                        GameTile temp = games.get(i);
+                        games.set(i, games.get(j));
+                        games.set(j, temp);
+                    }
+
+                }
+            }
 
             for(GameTile temp: games){
                 panel.add(temp);
@@ -197,11 +204,18 @@ public class ButtonActionEvents {
             JPanel panel = (JPanel) GameTileContainer.getGameTileScrollPane().getViewport().getView();
             panel.removeAll();
 
-            List<GameTile> games = Configuration.getGames();
+            LinkedList<GameTile> games = Configuration.getGames();
 
-            System.out.println(games);
-            Collections.sort(games);
-            System.out.println(games);
+            for(int i = 0; i < games.size(); i++){
+                for(int j = 1; j < games.size(); j++){
+                    if(games.get(i).getLastLaunched() < games.get(j).getLastLaunched()){
+                        GameTile temp = games.get(i);
+                        games.set(i, games.get(j));
+                        games.set(j, temp);
+                    }
+
+                }
+            }
 
             for(GameTile temp: games){
                 panel.add(temp);
