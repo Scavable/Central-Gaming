@@ -12,7 +12,7 @@ public class GameTileInfoContainer {
     public JPanel GameTileInfoContainer(Dimension preferredSize){
         gameTileInfoContainer.setName("InfoContainer");
 
-        gameTileInfoContainer.setMaximumSize(new Dimension(50, preferredSize.height));
+        gameTileInfoContainer.setPreferredSize(new Dimension((int) (preferredSize.width*  0.10), preferredSize.height));
         gameTileInfoContainer.setLayout(new GridLayout(4, 1));
         gameTileInfoContainer.setBorder(new EmptyBorder(10,10,10,10));
 

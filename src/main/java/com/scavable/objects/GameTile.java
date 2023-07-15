@@ -25,21 +25,17 @@ public class GameTile extends JButton {
         setText(name);
 
         GameTile.this.addActionListener(e -> {
-            GameTileInfoContainer.getGameTileInfoContainer().setVisible(!GameTileInfoContainer.getGameTileInfoContainer().isVisible());
             for (Component comp : GameTileInfoContainer.getGameTileInfoContainer().getComponents()) {
                 if (comp instanceof JLabel) {
                     switch (comp.getName()) {
-                        case "Name" -> ((JLabel) comp).setText("Name: " + name);
-                        case "Playtime" -> ((JLabel) comp).setText("Playtime: " + playTime);
-                        case "Launches" -> ((JLabel) comp).setText("Times Launched: " + timesLaunched);
+                        case "Name" -> ((JLabel) comp).setText(name);
+                        case "Playtime" -> ((JLabel) comp).setText("PlayTime: " + playTime);
+                        case "Launches" -> ((JLabel) comp).setText("Launched: " + timesLaunched);
                         default -> {
                         }
                     }
                 }
-
             }
-
-            System.out.println(GameTile.this);
         });
 
     }
@@ -54,17 +50,14 @@ public class GameTile extends JButton {
             for (Component comp : GameTileInfoContainer.getGameTileInfoContainer().getComponents()) {
                 if (comp instanceof JLabel) {
                     switch (comp.getName()) {
-                        case "Name" -> ((JLabel) comp).setText("Name: " + name);
-                        case "Playtime" -> ((JLabel) comp).setText("Playtime: " + playTime);
-                        case "Launches" -> ((JLabel) comp).setText("Times Launched: " + timesLaunched);
+                        case "Name" -> ((JLabel) comp).setText(name);
+                        case "Playtime" -> ((JLabel) comp).setText("PlayTime: " + playTime);
+                        case "Launches" -> ((JLabel) comp).setText("Launched: " + timesLaunched);
                         default -> {
                         }
                     }
                 }
-
             }
-
-            System.out.println(GameTile.this);
         });
 
     }
@@ -80,16 +73,13 @@ public class GameTile extends JButton {
                 if (comp instanceof JLabel) {
                     switch (comp.getName()) {
                         case "Name" -> ((JLabel) comp).setText(name);
-                        case "Playtime" -> ((JLabel) comp).setText(String.valueOf(playTime));
-                        case "Launches" -> ((JLabel) comp).setText(String.valueOf(timesLaunched));
+                        case "Playtime" -> ((JLabel) comp).setText("PlayTime: " + playTime);
+                        case "Launches" -> ((JLabel) comp).setText("Launched: " + timesLaunched);
                         default -> {
                         }
                     }
                 }
-
             }
-
-            System.out.println(GameTile.this);
         });
     }
 
@@ -105,16 +95,13 @@ public class GameTile extends JButton {
                 if (comp instanceof JLabel) {
                     switch (comp.getName()) {
                         case "Name" -> ((JLabel) comp).setText(name);
-                        case "Playtime" -> ((JLabel) comp).setText(String.valueOf(playTime));
-                        case "Launches" -> ((JLabel) comp).setText(String.valueOf(timesLaunched));
+                        case "Playtime" -> ((JLabel) comp).setText("PlayTime: " + playTime);
+                        case "Launches" -> ((JLabel) comp).setText("Launched: " + timesLaunched);
                         default -> {
                         }
                     }
                 }
-
             }
-
-            System.out.println(GameTile.this);
         });
     }
 
@@ -132,16 +119,13 @@ public class GameTile extends JButton {
                 if (comp instanceof JLabel) {
                     switch (comp.getName()) {
                         case "Name" -> ((JLabel) comp).setText(name);
-                        case "Playtime" -> ((JLabel) comp).setText(String.valueOf(playTime));
-                        case "Launches" -> ((JLabel) comp).setText(String.valueOf(timesLaunched));
+                        case "Playtime" -> ((JLabel) comp).setText("PlayTime: " + playTime);
+                        case "Launches" -> ((JLabel) comp).setText("Launched: " + timesLaunched);
                         default -> {
                         }
                     }
                 }
-
             }
-
-            System.out.println(GameTile.this);
         });
     }
 
@@ -160,17 +144,15 @@ public class GameTile extends JButton {
                 if (comp instanceof JLabel) {
                     switch (comp.getName()) {
                         case "Name" -> ((JLabel) comp).setText(name);
-                        case "Playtime" -> ((JLabel) comp).setText(String.valueOf(playTime));
-                        case "Launches" -> ((JLabel) comp).setText(String.valueOf(timesLaunched));
+                        case "Playtime" -> ((JLabel) comp).setText("PlayTime: " + playTime);
+                        case "Launches" -> ((JLabel) comp).setText("Launched: " + timesLaunched);
                         default -> {
                         }
                     }
                 }
-
             }
-
-            System.out.println(GameTile.this);
         });
+
     }
 
     @Override
