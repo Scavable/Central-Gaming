@@ -4,6 +4,7 @@ import com.scavable.gui.components.GameTileInfoContainer;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Date;
 
 public class GameTile extends JButton {
     private String gameLocation = null;
@@ -11,6 +12,7 @@ public class GameTile extends JButton {
     private double playTime = 0;
     private int timesLaunched = 0;
     private Image gameImage = null;
+    private long lastLaunched = 0;
 
     public GameTile() {
         this.name = null;
@@ -143,6 +145,34 @@ public class GameTile extends JButton {
         });
     }
 
+    public GameTile(String name, double playTime, int timesLaunched, Image gameImage, String gameLocation, long lastLaunched) {
+        this.name = name;
+        this.playTime = playTime;
+        this.timesLaunched = timesLaunched;
+        this.gameImage = gameImage;
+        this.gameLocation = gameLocation;
+        this.lastLaunched = lastLaunched;
+
+        this.setText(name);
+
+        GameTile.this.addActionListener(e -> {
+            for (Component comp : GameTileInfoContainer.getGameTileInfoContainer().getComponents()) {
+                if (comp instanceof JLabel) {
+                    switch (comp.getName()) {
+                        case "Name" -> ((JLabel) comp).setText(name);
+                        case "Playtime" -> ((JLabel) comp).setText(String.valueOf(playTime));
+                        case "Launches" -> ((JLabel) comp).setText(String.valueOf(timesLaunched));
+                        default -> {
+                        }
+                    }
+                }
+
+            }
+
+            System.out.println(GameTile.this);
+        });
+    }
+
     @Override
     public String toString() {
         return "GameTile{" +
@@ -159,7 +189,48 @@ public class GameTile extends JButton {
         return name;
     }
 
+    public double getPlayTime() {
+        return playTime;
+    }
+
+    public int getTimesLaunched() {
+        return timesLaunched;
+    }
+
+    public long getLastLaunched() {
+        return lastLaunched;
+    }
+
     public String getGameLocation() {
         return gameLocation;
+    }
+
+    public Image getGameImage() {
+        return gameImage;
+    }
+
+    @Override
+    public void setName(String name) {
+        super.setName(name);
+    }
+
+    public void setPlayTime(double playTime) {
+        this.playTime = playTime;
+    }
+
+    public void setTimesLaunched(int timesLaunched) {
+        this.timesLaunched = timesLaunched;
+    }
+
+    public void setLastLaunched(long lastLaunched) {
+        this.lastLaunched = lastLaunched;
+    }
+
+    public void setGameLocation(String gameLocation) {
+        this.gameLocation = gameLocation;
+    }
+
+    public void setGameImage(Image gameImage) {
+        this.gameImage = gameImage;
     }
 }

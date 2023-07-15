@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Central-Gaming:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Central_Gaming_jar</output-path>
+    <root id="archive" name="Central-Gaming.main.jar">
+      <element id="module-output" name="Central-Gaming.main" />
+      <element id="extracted-dir" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.cliftonlabs/json-simple/3.1.0/1e1c3e8927b78873e61ccc9f9b08e83c0630e35a/json-simple-3.1.0.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

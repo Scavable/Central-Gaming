@@ -1,5 +1,6 @@
 package com.scavable.gui.actions;
 
+import com.scavable.gui.LauncherFrame;
 import com.scavable.gui.components.GameTileContainer;
 import com.scavable.gui.components.GameTileInfoContainer;
 import com.scavable.objects.GameTile;
@@ -74,6 +75,9 @@ public class ButtonActionEvents {
                             games.add(new GameTile(game.getName()));
                         }
                         Configuration.setGames(games);
+                        LauncherFrame.getInstance().remove(GameTileContainer.getGameTileScrollPane());
+                        LauncherFrame.getInstance().add(new GameTileContainer().GameTileContainer(LauncherFrame.getInstance().getPreferredSize()), BorderLayout.CENTER);
+                        LauncherFrame.getInstance().repaint();
                     }
                 } else {
 
@@ -112,6 +116,8 @@ public class ButtonActionEvents {
                     if(component instanceof GameTile gameTile){
                         if(gameTile.getName().contains(name)){
                             gameLocation = gameTile.getGameLocation();
+                            gameTile.setLastLaunched(System.currentTimeMillis());
+                            System.out.println(gameTile.getLastLaunched());
                         }
 
                     }
@@ -119,6 +125,7 @@ public class ButtonActionEvents {
 
                 System.out.println(gameLocation.substring(0, gameLocation.lastIndexOf("\\")));
                 Runtime.getRuntime().exec("cmd /c start \"\" " + "\""+gameLocation+"\"");
+
 
             } catch (IOException ex) {
                 throw new RuntimeException(ex);

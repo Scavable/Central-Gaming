@@ -3,6 +3,7 @@ package com.scavable.gui;
 import com.scavable.gui.actions.ButtonActionEvents;
 import com.scavable.gui.components.GameTileContainer;
 import com.scavable.gui.components.GameTileInfoContainer;
+import com.scavable.util.Configuration;
 
 import javax.swing.*;
 import java.awt.*;
