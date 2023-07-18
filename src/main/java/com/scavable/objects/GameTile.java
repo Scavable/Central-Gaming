@@ -1,5 +1,6 @@
 package com.scavable.objects;
 
+import com.github.cliftonlabs.json_simple.JsonObject;
 import com.scavable.gui.components.GameTileInfoContainer;
 
 import javax.swing.*;
@@ -156,7 +157,7 @@ public class GameTile extends JButton {
 
     @Override
     public String toString() {
-        return "GameTile{" +
+        return "GameTile {" +
                 "name='" + name + '\'' +
                 ", playTime=" + playTime +
                 ", timesLaunched=" + timesLaunched +
@@ -164,6 +165,17 @@ public class GameTile extends JButton {
                 ", location=" + gameLocation +
                 ", lastLaunched=" + lastLaunched +
                 '}';
+    }
+
+    public JsonObject toJsonObject(){
+        JsonObject object = new JsonObject();
+        object.put("name", name);
+        object.put("playTime", playTime);
+        object.put("timesLaunched", timesLaunched);
+        object.put("gameImage", gameImage);
+        object.put("location", gameLocation);
+        object.put("lastLaunched", lastLaunched);
+        return object;
     }
 
     @Override

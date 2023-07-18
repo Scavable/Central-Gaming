@@ -1,5 +1,6 @@
 package com.scavable.setup;
 
+import com.github.cliftonlabs.json_simple.JsonArray;
 import com.github.cliftonlabs.json_simple.JsonException;
 import com.github.cliftonlabs.json_simple.JsonObject;
 import com.github.cliftonlabs.json_simple.Jsoner;
@@ -23,7 +24,7 @@ public class GamesFile {
         if (new File("games.json").exists()) {
             logger.info("Games file already exist");
 
-            try (Reader reader = Files.newBufferedReader(Paths.get("games.json"))){
+            try (Reader reader = Files.newBufferedReader(Paths.get("games.json"))) {
                 JsonObject parser = (JsonObject) Jsoner.deserialize(reader);
 
                 if (!parser.isEmpty() &&
@@ -37,7 +38,7 @@ public class GamesFile {
                     if (files != null) {
 
                         for (File game : files) {
-                            if (game.isFile()){
+                            if (game.isFile()) {
                                 games.add(new GameTile(game.getName().split("\\.")[0],
                                         0.0, 0, null, game.getAbsolutePath()));
                             }
@@ -45,9 +46,7 @@ public class GamesFile {
 
                         Configuration.setGames(games);
                     }
-                }
-
-                else if (!parser.isEmpty() &&
+                } else if (!parser.isEmpty() &&
                         Configuration.getGameDetectionType().contains("rootDirectories") &&
                         Configuration.getDirectories() != null) {
 
@@ -80,17 +79,23 @@ public class GamesFile {
     }
 
     public static void write() {
-        System.out.println(Configuration.getGamesMap());
+        if (Configuration.getGames() != null) {
+            JsonObject object = new JsonObject();
+            JsonArray array = new JsonArray();
+            for (GameTile game : Configuration.getGames()) {
+                array.add(game.toJsonObject());
+            }
+            object.put("games", array);
 
-        if (!Configuration.getGamesMap().isEmpty()) {
-            JsonObject object = new JsonObject(Configuration.getGamesMap());
-            try (PrintWriter printWriter = new PrintWriter("games.json")){
+            try (PrintWriter printWriter = new PrintWriter("games.json")) {
                 printWriter.write(object.toJson());
 
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
         }
-
     }
+
+
 }
+

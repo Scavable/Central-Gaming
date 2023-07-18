@@ -10,6 +10,5 @@ public class Test {
         gameTiles.add(gameTile);
         Configuration.setGames(gameTiles);
         System.out.println(Configuration.getGames());
-        System.out.println(Configuration.getGamesMap());
     }
 }

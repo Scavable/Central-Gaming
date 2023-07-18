@@ -1,8 +1,10 @@
 package com.scavable.util;
 
+import com.github.cliftonlabs.json_simple.JsonArray;
 import com.scavable.objects.GameTile;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -98,9 +100,4 @@ public class Configuration {
         return map;
     }
 
-    public static Map<String, Object> getGamesMap() {
-        Map<String, Object> map = new HashMap<>();
-        map.put("games", games.toString());
-        return map;
-    }
 }
