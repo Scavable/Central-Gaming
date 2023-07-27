@@ -7,15 +7,13 @@ import com.github.cliftonlabs.json_simple.Jsoner;
 import com.scavable.objects.GameTile;
 import com.scavable.util.Configuration;
 
+import java.awt.*;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.LinkedList;
 import java.util.logging.Logger;
 
-/**
- * Will need to redo this class to instead hold Game Object data instead of game urls only
- */
 public class GamesFile {
 
     public static void read() throws IOException {
@@ -33,19 +31,19 @@ public class GamesFile {
                         Configuration.getShortcutFolder().listFiles() != null) {
 
                     LinkedList<GameTile> games = new LinkedList<>();
-                    File[] files = Configuration.getShortcutFolder().listFiles();
+                    JsonArray array = (JsonArray) parser.get("games");
 
-                    if (files != null) {
-
-                        for (File game : files) {
-                            if (game.isFile()) {
-                                games.add(new GameTile(game.getName().split("\\.")[0],
-                                        0.0, 0, null, game.getAbsolutePath()));
-                            }
-                        }
-
-                        Configuration.setGames(games);
+                    for(Object temp: array){
+                        JsonObject object = (JsonObject) temp;
+                        games.add(new GameTile((String)object.get("name"),
+                                object.getDouble(Jsoner.mintJsonKey("playTime", null)),
+                                object.getInteger(Jsoner.mintJsonKey("timesLaunched", null)),
+                                (Image)object.get("gameImage"),
+                                (String)object.get("gameLocation"),
+                                object.getLong(Jsoner.mintJsonKey("lastLaunched", null))));
                     }
+
+                    Configuration.setGames(games);
                 } else if (!parser.isEmpty() &&
                         Configuration.getGameDetectionType().contains("rootDirectories") &&
                         Configuration.getDirectories() != null) {

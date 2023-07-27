@@ -186,7 +186,6 @@ public class ButtonActionEvents {
                         games.set(i, games.get(j));
                         games.set(j, temp);
                     }
-
                 }
             }
 

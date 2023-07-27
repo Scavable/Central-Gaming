@@ -14,6 +14,9 @@ public class GameTile extends JButton {
     private Image gameImage = null;
     private long lastLaunched = 0;
 
+    /**
+     *
+     */
     public GameTile() {
         this.name = null;
         this.playTime = 0;
@@ -40,6 +43,10 @@ public class GameTile extends JButton {
 
     }
 
+    /**
+     *
+     * @param name The text shown on the GameTiles (JButton)
+     */
     public GameTile(String name) {
 
         this.name = name;
@@ -62,6 +69,11 @@ public class GameTile extends JButton {
 
     }
 
+    /**
+     *
+     * @param name The text shown on the GameTiles (JButton)
+     * @param playTime The amount of time the game/process is open
+     */
     public GameTile(String name, double playTime) {
         this.name = name;
         this.playTime = playTime;
@@ -83,6 +95,12 @@ public class GameTile extends JButton {
         });
     }
 
+    /**
+     *
+     * @param name The text shown on the GameTiles (JButton)
+     * @param playTime The amount of time the game/process is open
+     * @param timesLaunched
+     */
     public GameTile(String name, double playTime, int timesLaunched) {
         this.name = name;
         this.playTime = playTime;
@@ -105,6 +123,14 @@ public class GameTile extends JButton {
         });
     }
 
+    /**
+     *
+     * @param name The text shown on the GameTiles (JButton)
+     * @param playTime The amount of time the game/process is open
+     * @param timesLaunched
+     * @param gameImage
+     * @param gameLocation
+     */
     public GameTile(String name, double playTime, int timesLaunched, Image gameImage, String gameLocation) {
         this.name = name;
         this.playTime = playTime;
@@ -129,6 +155,15 @@ public class GameTile extends JButton {
         });
     }
 
+    /**
+     *
+     * @param name The text shown on the GameTiles (JButton)
+     * @param playTime The amount of time the game/process is open
+     * @param timesLaunched
+     * @param gameImage
+     * @param gameLocation
+     * @param lastLaunched
+     */
     public GameTile(String name, double playTime, int timesLaunched, Image gameImage, String gameLocation, long lastLaunched) {
         this.name = name;
         this.playTime = playTime;

@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 
 public class ConfigFile {
 
+    @SuppressWarnings("unchecked")
     public static void read() throws IOException {
         Logger logger = Logger.getLogger(ConfigFile.class.getName());
 
