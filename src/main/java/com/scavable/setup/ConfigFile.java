@@ -25,17 +25,15 @@ public class ConfigFile {
                 JsonObject parser = (JsonObject) Jsoner.deserialize(reader);
 
                 if (!parser.isEmpty()) {
-                    Configuration.setGameDetectionType((String) parser.get("gameDetectionType"));
+                    Configuration.setGameDetectionType(parser.getString(Jsoner.mintJsonKey("gameDetectionType", null)));
                     if(Configuration.getGameDetectionType().equals("Shortcut Folder")){
-                        File file = new File((String) parser.get("shortcutFolder"));
-                        Configuration.setShortcutFolder(file);
+                        Configuration.setShortcutFolder(new File(parser.getString(Jsoner.mintJsonKey("shortcutFolder", null))));
                     }
+                    //Not Implemented Yet
                     else if(Configuration.getGameDetectionType().equals("Root Game Directories")){
                         Configuration.setDirectories((LinkedList<File>) parser.get("rootDirectories"));
                     }
                 }
-
-                parser.clear();
 
             } catch (JsonException e) {
                 //File doesn't have the minimum {}
@@ -55,10 +53,8 @@ public class ConfigFile {
     }
 
     public static void write() {
-        JsonObject object = new JsonObject(Configuration.getConfigMap());
         try (PrintWriter printWriter = new PrintWriter("config.json")){
-            printWriter.write(object.toJson());
-
+            printWriter.write(new JsonObject(Configuration.getConfigJsonObject()).toJson());
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }

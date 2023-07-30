@@ -10,9 +10,9 @@ public class Launcher {
     public static void main(String[] args) throws IOException {
 
         //Reads needed data before executing LauncherFrame thread for use
-        Setup setup = new Setup();
+        new Setup();
 
-        Runnable runnable = new Thread(LauncherFrame::getInstance);
+        Runnable runnable = LauncherFrame::getInstance;
         runnable.run();
 
     }

@@ -1,6 +1,7 @@
 package com.scavable.util;
 
 import com.github.cliftonlabs.json_simple.JsonArray;
+import com.github.cliftonlabs.json_simple.JsonObject;
 import com.scavable.objects.GameTile;
 
 import java.io.File;
@@ -85,19 +86,20 @@ public class Configuration {
         Configuration.gameDetectionType = gameDetectionType;
     }
 
-    public static Map<String, Object> getConfigMap() {
-        Map<String, Object> map = new HashMap<>();
-        map.put("appName", appName);
-        map.put("gameDetectionType", gameDetectionType);
-        map.put("version", version);
+    public static JsonObject getConfigJsonObject() {
+        JsonObject object = new JsonObject();
+        object.put("appName", appName);
+        object.put("gameDetectionType", gameDetectionType);
+        object.put("version", version);
 
-        if (gameDetectionType.contains("Shortcut"))
-            map.put("shortcutFolder", shortcutFolder.getAbsolutePath());
+        if (gameDetectionType.contains("Shortcut")){
+            object.put("shortcutFolder", shortcutFolder.getAbsolutePath());
+        }
         else if (gameDetectionType.contains("Root")) {
-            map.put("rootDirectories", rootDirectories);
+            object.put("rootDirectories", rootDirectories);
         }
 
-        return map;
+        return object;
     }
 
 }
