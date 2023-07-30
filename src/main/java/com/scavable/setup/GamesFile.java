@@ -25,64 +25,68 @@ public class GamesFile {
             try (Reader reader = Files.newBufferedReader(Paths.get("games.json"))) {
                 JsonObject parser = (JsonObject) Jsoner.deserialize(reader);
 
-                if (!parser.isEmpty() &&
-                        Configuration.getGameDetectionType().contains("Shortcut") &&
-                        Configuration.getShortcutFolder() != null &&
-                        Configuration.getShortcutFolder().listFiles() != null) {
+                if (!parser.isEmpty()) {
 
-                    LinkedList<GameTile> games = new LinkedList<>();
-                    JsonArray array = (JsonArray) parser.get("games");
+                        LinkedList<GameTile> games = new LinkedList<>();
+                        JsonArray array = (JsonArray) parser.get("games");
 
-                    for(Object temp: array){
-                        JsonObject object = (JsonObject) temp;
-                        games.add(new GameTile((String)object.get("name"),
-                                object.getDouble(Jsoner.mintJsonKey("playTime", null)),
-                                object.getInteger(Jsoner.mintJsonKey("timesLaunched", null)),
-                                (Image)object.get("gameImage"),
-                                (String)object.get("gameLocation"),
-                                object.getLong(Jsoner.mintJsonKey("lastLaunched", null))));
-                    }
+                        for (Object temp : array) {
 
-                    Configuration.setGames(games);
-                } else if (!parser.isEmpty() &&
-                        Configuration.getGameDetectionType().contains("rootDirectories") &&
-                        Configuration.getDirectories() != null) {
+                            JsonObject object = (JsonObject) temp;
 
-                    LinkedList<GameTile> games = new LinkedList<>();
-                    File[] files = Configuration.getShortcutFolder().listFiles();
-                    if (files != null) {
-                        for (File game : files) {
-                            games.add(new GameTile(game.getName().split("\\.")[0],
-                                    0.0, 0, null, game.getAbsolutePath()));
+                            games.add(new GameTile((String) object.get("name"),
+                                    object.getDouble(Jsoner.mintJsonKey("playTime", null)),
+                                    object.getInteger(Jsoner.mintJsonKey("timesLaunched", null)),
+                                    (Image) object.get("gameImage"),
+                                    (String) object.get("gameLocation"),
+                                    object.getLong(Jsoner.mintJsonKey("lastLaunched", null))));
+
                         }
+
                         Configuration.setGames(games);
+
                     }
-                }
+                    else if (Configuration.getGameDetectionType().contains("rootDirectories") &&
+                            Configuration.getDirectories() != null) {
 
-                parser.clear();
+                        LinkedList<GameTile> games = new LinkedList<>();
+                        File[] files = Configuration.getShortcutFolder().listFiles();
 
-            } catch (JsonException e) {
+                        if (files != null) {
+                            for (File game : files) {
+                                games.add(new GameTile(game.getName().split("\\.")[0],
+                                        0.0, 0, null, game.getAbsolutePath()));
+                            }
+
+                            Configuration.setGames(games);
+
+                        }
+                    }
+                } catch (JsonException e) {
+
                 //File doesn't have the minimum {}
                 //Override file to contain only {}
                 if (new File("games.json").createNewFile())
                     logger.info("Unable to clean corrupted games file");
 
-                JsonObject jsonObject = new JsonObject();
-                FileWriter fileWriter = new FileWriter("games.json");
-                fileWriter.write(jsonObject.toJson());
+                try(FileWriter fileWriter = new FileWriter("games.json")){
+                    fileWriter.write(new JsonObject().toJson());
+                }
 
-                fileWriter.close();
             }
         }
     }
 
     public static void write() {
         if (Configuration.getGames() != null) {
+
             JsonObject object = new JsonObject();
             JsonArray array = new JsonArray();
+
             for (GameTile game : Configuration.getGames()) {
                 array.add(game.toJsonObject());
             }
+
             object.put("games", array);
 
             try (PrintWriter printWriter = new PrintWriter("games.json")) {
