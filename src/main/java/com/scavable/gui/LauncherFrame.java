@@ -3,6 +3,7 @@ package com.scavable.gui;
 import com.scavable.gui.actions.ButtonActionEvents;
 import com.scavable.gui.components.GameTileContainer;
 import com.scavable.gui.components.GameTileInfoContainer;
+import com.scavable.gui.components.OptionsBar;
 import com.scavable.util.Configuration;
 
 import javax.swing.*;
@@ -19,15 +20,7 @@ public class LauncherFrame extends JFrame {
     protected JPanel topPanel = new JPanel();
 
     protected JPanel buttonsBarPanel = new JPanel();
-
-    protected JMenuBar optionsBar = new JMenuBar();
-    protected JMenuItem exitMenuItem = new JMenuItem("Exit");
-    protected JMenuItem sortAsc = new JMenuItem("Ascending");
-    protected JMenuItem sortDesc = new JMenuItem("Descending");
-    protected JMenuItem sortRecent = new JMenuItem("Recent");
-    protected JMenuItem sortOldest = new JMenuItem("Oldest");
-    protected JMenuItem aboutMenuItem = new JMenuItem("About");
-    protected JMenuItem gameDetectionMenuItem = new JMenuItem("Game Detection");
+    protected OptionsBar optionsBar = new OptionsBar();
 
     JScrollPane gameTileContainer;
     JPanel gameTileInfoContainer;
@@ -42,7 +35,6 @@ public class LauncherFrame extends JFrame {
         setUndecorated(true);
 
         actionListeners();
-        optionsBar();
         topPanel();
         buttonsBarPanel();
 
@@ -66,11 +58,11 @@ public class LauncherFrame extends JFrame {
         topPanel.setLayout(layout);
         topPanel.setPreferredSize(new Dimension(getPreferredSize().width, (int)(exitButton.getPreferredSize().height * 1.4)));
 
-        topPanel.add(optionsBar);
+        topPanel.add(optionsBar.OptionsBar());
         topPanel.add(exitButton);
 
-        layout.putConstraint(SpringLayout.WEST, optionsBar, 5, SpringLayout.WEST, topPanel);
-        layout.putConstraint(SpringLayout.NORTH, optionsBar, 5, SpringLayout.NORTH, topPanel);
+        layout.putConstraint(SpringLayout.WEST, optionsBar.getOptionsBar(), 5, SpringLayout.WEST, topPanel);
+        layout.putConstraint(SpringLayout.NORTH, optionsBar.getOptionsBar(), 5, SpringLayout.NORTH, topPanel);
         layout.putConstraint(SpringLayout.EAST, exitButton, -5, SpringLayout.EAST, topPanel);
         layout.putConstraint(SpringLayout.NORTH, exitButton, 5, SpringLayout.NORTH, topPanel);
     }
@@ -83,39 +75,10 @@ public class LauncherFrame extends JFrame {
 
     private void actionListeners() {
 
-        exitMenuItem.addActionListener(ButtonActionEvents.exitButtonAction());
-        gameDetectionMenuItem.addActionListener(ButtonActionEvents.gameDetectionAction());
-        aboutMenuItem.addActionListener(ButtonActionEvents.aboutAction());
+        optionsBar.getExitMenuItem().addActionListener(ButtonActionEvents.exitButtonAction());
+        optionsBar.getGameDetectionMenuItem().addActionListener(ButtonActionEvents.gameDetectionAction());
+        optionsBar.getAboutMenuItem().addActionListener(ButtonActionEvents.aboutAction());
         exitButton.addActionListener(ButtonActionEvents.exitButtonAction());
-    }
-
-    private void optionsBar() {
-
-        JMenu fileMenu = new JMenu("File");
-        JMenu editMenu = new JMenu("Edit");
-        JMenu sortMenu = new JMenu("Sort");
-        JMenu customizeMenu = new JMenu("Customize");
-
-        sortAsc.addActionListener(ButtonActionEvents.sortAscendingAction());
-        sortDesc.addActionListener(ButtonActionEvents.sortDescendingAction());
-        sortRecent.addActionListener(ButtonActionEvents.sortRecent());
-        sortOldest.addActionListener(ButtonActionEvents.sortOldest());
-
-        optionsBar.add(fileMenu);
-        optionsBar.add(editMenu);
-        optionsBar.add(sortMenu);
-        optionsBar.add(customizeMenu);
-
-        fileMenu.add(exitMenuItem);
-
-        editMenu.add(gameDetectionMenuItem);
-
-        sortMenu.add(sortAsc);
-        sortMenu.add(sortDesc);
-        sortMenu.add(sortRecent);
-        sortMenu.add(sortOldest);
-
-        optionsBar.add(aboutMenuItem);
     }
 
     public JPanel getButtonsBarPanel() {
@@ -124,14 +87,6 @@ public class LauncherFrame extends JFrame {
 
     public void setButtonsBarPanel(JPanel buttonsBarPanel) {
         this.buttonsBarPanel = buttonsBarPanel;
-    }
-
-    public JMenuBar getOptionsBar() {
-        return optionsBar;
-    }
-
-    public void setOptionsBar(JMenuBar optionsBar) {
-        this.optionsBar = optionsBar;
     }
 
     public JScrollPane getGameTileContainer() {
