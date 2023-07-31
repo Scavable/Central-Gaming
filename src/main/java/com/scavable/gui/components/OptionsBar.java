@@ -4,8 +4,7 @@ import com.scavable.gui.actions.ButtonActionEvents;
 
 import javax.swing.*;
 
-public class OptionsBar {
-    protected JMenuBar optionsBar = new JMenuBar();
+public class OptionsBar extends JMenuBar{
     protected JMenuItem exitMenuItem = new JMenuItem("Exit");
     protected JMenuItem sortAsc = new JMenuItem("Ascending");
     protected JMenuItem sortDesc = new JMenuItem("Descending");
@@ -24,10 +23,10 @@ public class OptionsBar {
         sortRecent.addActionListener(ButtonActionEvents.sortRecent());
         sortOldest.addActionListener(ButtonActionEvents.sortOldest());
 
-        optionsBar.add(fileMenu);
-        optionsBar.add(editMenu);
-        optionsBar.add(sortMenu);
-        optionsBar.add(customizeMenu);
+        add(fileMenu);
+        add(editMenu);
+        add(sortMenu);
+        add(customizeMenu);
 
         fileMenu.add(exitMenuItem);
 
@@ -38,17 +37,13 @@ public class OptionsBar {
         sortMenu.add(sortRecent);
         sortMenu.add(sortOldest);
 
-        optionsBar.add(aboutMenuItem);
+        add(aboutMenuItem);
 
-        return optionsBar;
+        return this;
     }
 
     public JMenuBar getOptionsBar() {
-        return optionsBar;
-    }
-
-    public void setOptionsBar(JMenuBar optionsBar) {
-        this.optionsBar = optionsBar;
+        return this;
     }
 
     public JMenuItem getExitMenuItem() {

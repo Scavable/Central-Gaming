@@ -4,7 +4,6 @@ import com.scavable.gui.actions.ButtonActionEvents;
 import com.scavable.gui.components.GameTileContainer;
 import com.scavable.gui.components.GameTileInfoContainer;
 import com.scavable.gui.components.OptionsBar;
-import com.scavable.util.Configuration;
 
 import javax.swing.*;
 import java.awt.*;
@@ -57,7 +56,6 @@ public class LauncherFrame extends JFrame {
         SpringLayout layout = new SpringLayout();
         topPanel.setLayout(layout);
         topPanel.setPreferredSize(new Dimension(getPreferredSize().width, (int)(exitButton.getPreferredSize().height * 1.4)));
-
         topPanel.add(optionsBar.OptionsBar());
         topPanel.add(exitButton);
 
