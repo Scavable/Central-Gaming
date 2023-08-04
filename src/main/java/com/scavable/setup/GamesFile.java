@@ -34,7 +34,7 @@ public class GamesFile {
 
                             JsonObject object = (JsonObject) temp;
 
-                            games.add(new GameTile((String) object.get("name"),
+                            games.add(new GameTile(object.get("name").toString().split("\\.")[0],
                                     object.getDouble(Jsoner.mintJsonKey("playTime", null)),
                                     object.getInteger(Jsoner.mintJsonKey("timesLaunched", null)),
                                     (Image) object.get("gameImage"),
