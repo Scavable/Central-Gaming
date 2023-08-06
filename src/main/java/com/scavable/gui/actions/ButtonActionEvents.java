@@ -65,17 +65,21 @@ public class ButtonActionEvents {
                 frame.dispose();
 
                 if (choice.getSelectedItem().toString().contains("Shortcut")) {
+
                     JFileChooser jFileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
                     jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
                     jFileChooser.setDialogTitle("Shortcut's Folder");
-                    int result = jFileChooser.showDialog(null, "Select");
-                    if (result == JFileChooser.APPROVE_OPTION) {
+
+                    if (jFileChooser.showDialog(null, "Select") == JFileChooser.APPROVE_OPTION) {
+
                         File file = jFileChooser.getSelectedFile();
                         Configuration.setShortcutFolder(file);
                         LinkedList<GameTile> games = new LinkedList<>();
+
                         for (File game : Objects.requireNonNull(file.listFiles())) {
-                            games.add(new GameTile(game.getName()));
+                            games.add(new GameTile(game.getName().split("\\.")[0], 0, 0, null, game.getAbsolutePath(), 0));
                         }
+
                         Configuration.setGames(games);
                         LauncherFrame.getInstance().remove(GameTileContainer.getGameTileScrollPane());
                         LauncherFrame.getInstance().add(new GameTileContainer().GameTileContainer(LauncherFrame.getInstance().getPreferredSize()), BorderLayout.CENTER);

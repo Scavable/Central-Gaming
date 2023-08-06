@@ -38,7 +38,7 @@ public class GamesFile {
                                     object.getDouble(Jsoner.mintJsonKey("playTime", null)),
                                     object.getInteger(Jsoner.mintJsonKey("timesLaunched", null)),
                                     (Image) object.get("gameImage"),
-                                    (String) object.get("gameLocation"),
+                                    (String) object.get("location"),
                                     object.getLong(Jsoner.mintJsonKey("lastLaunched", null))));
 
                         }
